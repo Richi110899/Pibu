@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { getDetallesOrdenVenta, getMedicamentos, updateDetalleOrdenVenta, addDetalleOrdenVenta, deleteDetalleOrdenVenta } from '@/services/api';
 
@@ -87,9 +87,9 @@ export default function EditarDetalleOrdenVenta() {
 
   useEffect(() => {
     cargarDatos();
-  }, [nroOrden, cargarDatos]);
+  }, [cargarDatos]);
 
-  const cargarDatos = async () => {
+  const cargarDatos = useCallback(async () => {
     setCargando(true);
     try {
       const [medicamentosData, detallesData] = await Promise.all([
@@ -107,7 +107,7 @@ export default function EditarDetalleOrdenVenta() {
       // setError("Error al cargar los datos"); // Eliminada porque no se usa
     }
     setCargando(false);
-  };
+  }, [nroOrden]);
 
   // Actualiza el stock y descripción al seleccionar medicamento
   const handleDetalleChange = (idx, field, value) => {
