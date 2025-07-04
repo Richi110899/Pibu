@@ -16,7 +16,6 @@ const columns = [
 export default function DetalleOrdenCompraPage() {
   const router = useRouter();
   const [detalles, setDetalles] = useState([]);
-  const [ordenes, setOrdenes] = useState([]);
   const [medicamentos, setMedicamentos] = useState([]);
   const [filtro, setFiltro] = useState("");
   const [selected, setSelected] = useState(null);
@@ -56,7 +55,6 @@ export default function DetalleOrdenCompraPage() {
         getMedicamentos()
       ]);
       setDetalles(det);
-      setOrdenes(ord);
       setMedicamentos(meds);
     } catch {
       setMensajeGlobal("Error al cargar los detalles de orden de compra");

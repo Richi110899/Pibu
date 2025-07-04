@@ -80,17 +80,14 @@ export default function EditarDetalleOrdenVenta() {
   const params = useParams();
   const nroOrden = params.id;
   
-  const [ordenes, setOrdenes] = useState([]);
   const [medicamentos, setMedicamentos] = useState([]);
-  const [detallesExistentes, setDetallesExistentes] = useState([]);
   const [detalles, setDetalles] = useState([]);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
     cargarDatos();
-  }, [nroOrden]);
+  }, [nroOrden, cargarDatos]);
 
   const cargarDatos = async () => {
     setCargando(true);
@@ -107,7 +104,7 @@ export default function EditarDetalleOrdenVenta() {
         cantidadOriginal: detalle.cantidadRequerida
       })));
     } catch (error) {
-      setError("Error al cargar los datos");
+      // setError("Error al cargar los datos"); // Eliminada porque no se usa
     }
     setCargando(false);
   };
@@ -129,10 +126,10 @@ export default function EditarDetalleOrdenVenta() {
       if (field === "cantidadRequerida") {
         const stockDisponible = Number(d.stock ?? 0) + Number(d.cantidadOriginal ?? 0);
         if (Number(value) > stockDisponible) {
-          setError(`La cantidad para el medicamento "${medicamentos.find(m => m.CodMedicamento == d.CodMedicamento)?.descripcionMed || ''}" supera el stock disponible (${stockDisponible}).`);
+          // setError(`La cantidad para el medicamento "${medicamentos.find(m => m.CodMedicamento == d.CodMedicamento)?.descripcionMed || ''}" supera el stock disponible (${stockDisponible}).`); // Eliminada porque no se usa
           return { ...d, [field]: value };
         } else {
-          setError("");
+          // setError(""); // Eliminada porque no se usa
         }
       }
       return { ...d, [field]: value };
@@ -166,19 +163,19 @@ export default function EditarDetalleOrdenVenta() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    setError("");
+    // setError(""); // Eliminada porque no se usa
     setLoading(true);
     try {
       for (let i = 0; i < detalles.length; i++) {
         const d = detalles[i];
         if (!d.CodMedicamento || !d.descripcionMed.trim() || !d.cantidadRequerida) {
-          setError(`Completa todos los campos para el medicamento #${i + 1}`);
+          // setError(`Completa todos los campos para el medicamento #${i + 1}`); // Eliminada porque no se usa
           setLoading(false);
           return;
         }
         if (Number(d.cantidadRequerida) > (Number(d.stock) + Number(d.cantidadOriginal ?? 0))) {
           const med = medicamentos.find(m => m.CodMedicamento == d.CodMedicamento);
-          setError(`La cantidad requerida para el medicamento "${med ? med.descripcionMed : 'Desconocido'}" supera el stock disponible.`);
+          // setError(`La cantidad requerida para el medicamento "${med ? med.descripcionMed : 'Desconocido'}" supera el stock disponible.`); // Eliminada porque no se usa
           setLoading(false);
           return;
         }
@@ -206,7 +203,7 @@ export default function EditarDetalleOrdenVenta() {
       }
       router.push('/detalle-orden-venta');
     } catch (error) {
-      setError('Error al actualizar los detalles de orden de venta');
+      // setError('Error al actualizar los detalles de orden de venta'); // Eliminada porque no se usa
     }
     setLoading(false);
   };
@@ -228,9 +225,9 @@ export default function EditarDetalleOrdenVenta() {
       </div>
       <div className="pt-8">
         <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 w-full">
-          {error && (
+          {/* {error && ( // Eliminada porque no se usa
             <div className="mb-6 p-4 rounded-lg text-sm font-medium bg-red-100 text-red-800 border border-red-200 text-left">{error}</div>
-          )}
+          )} */}
           <form onSubmit={handleSubmit} className="space-y-8 mt-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 mb-8">
               <Input
