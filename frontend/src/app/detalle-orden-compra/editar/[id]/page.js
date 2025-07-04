@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from 'next/navigation';
-import { getDetallesOrdenCompra, getOrdenesCompra, getMedicamentos, updateDetalleOrdenCompra, addDetalleOrdenCompra, deleteDetalleOrdenCompra } from '@/services/api';
+import { getDetallesOrdenCompra, getMedicamentos, updateDetalleOrdenCompra, addDetalleOrdenCompra, deleteDetalleOrdenCompra } from '@/services/api';
 
 const Input = ({ label, name, type = "text", value, onChange, readOnly, ...props }) => {
   const [focused, setFocused] = React.useState(false);

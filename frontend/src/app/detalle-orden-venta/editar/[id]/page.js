@@ -4,10 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { getDetallesOrdenVenta, getMedicamentos, updateDetalleOrdenVenta, addDetalleOrdenVenta, deleteDetalleOrdenVenta } from '@/services/api';
 
-const API_DETALLES = "http://localhost:3001/api/detalles-venta";
-const API_MEDICAMENTOS = "http://localhost:3001/api/medicamentos";
-const API_ORDENES = "http://localhost:3001/api/ordenes-venta";
-
 const Input = ({ label, name, type = "text", value, onChange, ...props }) => {
   const isDate = type === 'date';
   const [focused, setFocused] = React.useState(false);
