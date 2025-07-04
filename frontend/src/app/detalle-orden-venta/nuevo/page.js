@@ -84,7 +84,7 @@ const fetcher = url => fetch(url).then(r => r.json());
 export default function NuevoDetalleOrdenVenta() {
   const router = useRouter();
   // SWR para órdenes de venta
-  const { data: ordenes = [] } = useSWR(API_ORDENES, fetcher);
+  const { data: ordenes = [], isLoading: loadingOrdenes } = useSWR(API_ORDENES, fetcher);
   const [detallesExistentes, setDetallesExistentes] = useState([]);
   const [nroOrden, setNroOrden] = useState("");
   const [detalles, setDetalles] = useState([
@@ -94,7 +94,7 @@ export default function NuevoDetalleOrdenVenta() {
   const [loading, setLoading] = useState(false);
 
   // SWR para medicamentos
-  const { data: medicamentos = [] } = useSWR(API_MEDICAMENTOS, fetcher);
+  const { data: medicamentos = [], isLoading: loadingMeds } = useSWR(API_MEDICAMENTOS, fetcher);
 
   useEffect(() => {
     fetch(API_DETALLES).then(r => r.json()).then(setDetallesExistentes);

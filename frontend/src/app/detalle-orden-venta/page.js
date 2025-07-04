@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 const API_DETALLES = "http://localhost:3001/api/detalles-venta";
 const API_ORDENES = "http://localhost:3001/api/ordenes-venta";
-// const API_MEDICAMENTO = "http://localhost:3001/api/medicamentos"; // Eliminada porque no se usa
+const API_MEDICAMENTO = "http://localhost:3001/api/medicamentos";
 
 const columns = [
   { key: "id", label: "ID" },
@@ -24,9 +24,9 @@ function DetalleModal({ detalle, onClose, onEdit, onDelete, eliminando, error, m
   if (!detalle) return null;
   
   // Mostrar todas las descripciones agrupadas
-  // const descripcionesStr = detalle.descripciones ? detalle.descripciones.join(', ') : '';
-  // const medicamentosStr = detalle.medicamentos ? detalle.medicamentos.join(', ') : '';
-  // const cantidadesStr = detalle.cantidades ? detalle.cantidades.join(', ') : '';
+  const descripcionesStr = detalle.descripciones ? detalle.descripciones.join(', ') : '';
+  const medicamentosStr = detalle.medicamentos ? detalle.medicamentos.join(', ') : '';
+  const cantidadesStr = detalle.cantidades ? detalle.cantidades.join(', ') : '';
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -161,12 +161,12 @@ function getMedicamentoLabel(cod) {
 export default function DetalleOrdenVentaPage() {
   const router = useRouter();
   const [detalles, setDetalles] = useState([]);
-  // const [ordenes, setOrdenes] = useState([]); // Eliminada porque no se usa
+  const [ordenes, setOrdenes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [mensajeGlobal, setMensajeGlobal] = useState("");
   const [filtro, setFiltro] = useState("");
   const [detalle, setDetalle] = useState(null);
-  // const [modalError, setModalError] = useState(""); // Eliminada porque no se usa
+  const [modalError, setModalError] = useState("");
   const [eliminando, setEliminando] = useState(false);
   const [modalMensaje, setModalMensaje] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -206,7 +206,7 @@ export default function DetalleOrdenVentaPage() {
       ]);
 
       setDetalles(detallesData);
-      // setOrdenes(ordenesData); // Eliminada porque no se usa
+      setOrdenes(ordenesData);
     } catch {
       setMensajeGlobal("Error al cargar los detalles de orden de venta");
     }
@@ -233,7 +233,7 @@ export default function DetalleOrdenVentaPage() {
   });
 
   const handleRowClick = (detalle) => {
-    // setModalError(""); // Eliminada porque no se usa
+    setModalError("");
     setModalMensaje("");
     setDetalle(detalle);
   };
@@ -258,10 +258,10 @@ export default function DetalleOrdenVentaPage() {
         fetchDetalles();
         setTimeout(() => setMensajeGlobal(""), 3000);
       } else {
-        // setModalError("Error al eliminar el detalle de orden de venta"); // Eliminada porque no se usa
+        setModalError("Error al eliminar el detalle de orden de venta");
       }
     } catch {
-      // setModalError("Error al eliminar el detalle de orden de venta"); // Eliminada porque no se usa
+      setModalError("Error al eliminar el detalle de orden de venta");
     }
     setEliminando(false);
   };
@@ -325,7 +325,7 @@ export default function DetalleOrdenVentaPage() {
           onEdit={handleEdit}
           onDelete={() => setShowDeleteModal(true)}
           eliminando={eliminando}
-          error={""}
+          error={modalError}
           mensaje={modalMensaje}
         />
       )}
