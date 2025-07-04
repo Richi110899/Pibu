@@ -85,36 +85,44 @@ export default function EditarDetalleOrdenVenta() {
   const [loading, setLoading] = useState(false);
   const [cargando, setCargando] = useState(true);
 
-  useEffect(() => {
-    cargarDatos();
-  }, [cargarDatos]);
-
   const cargarDatos = useCallback(async () => {
     setCargando(true);
     try {
+      console.log('Cargando datos para orden:', nroOrden);
       const [medicamentosData, detallesData] = await Promise.all([
         getMedicamentos(),
         getDetallesOrdenVenta()
       ]);
-      setMedicamentos(medicamentosData);
+      console.log('Medicamentos cargados:', medicamentosData?.length || 0);
+      console.log('Detalles cargados:', detallesData?.length || 0);
+      
+      setMedicamentos(medicamentosData || []);
       // Filtrar detalles de la orden específica
-      const detallesOrden = detallesData.filter(d => d.NroOrdenVta == nroOrden);
+      const detallesOrden = (detallesData || []).filter(d => d.NroOrdenVta == nroOrden);
+      console.log('Detalles filtrados para orden', nroOrden, ':', detallesOrden.length);
+      
       setDetalles(detallesOrden.map(detalle => ({
         ...detalle,
         cantidadOriginal: detalle.cantidadRequerida
       })));
     } catch (error) {
-      // setError("Error al cargar los datos"); // Eliminada porque no se usa
+      console.error('Error al cargar datos:', error);
+      setMedicamentos([]);
+      setDetalles([]);
     }
     setCargando(false);
   }, [nroOrden]);
 
+  useEffect(() => {
+    cargarDatos();
+  }, [cargarDatos]);
+
   // Actualiza el stock y descripción al seleccionar medicamento
   const handleDetalleChange = (idx, field, value) => {
     setDetalles(detalles => detalles.map((d, i) => {
-      if (i !== idx) return d;
+      if (i !== idx || !d) return d;
       if (field === "CodMedicamento") {
-        const med = medicamentos.find(m => m.CodMedicamento == value);
+        const med = (medicamentos || []).find(m => m && m.CodMedicamento == value);
         return {
           ...d,
           CodMedicamento: value,
@@ -218,6 +226,17 @@ export default function EditarDetalleOrdenVenta() {
     );
   }
 
+  // Validación de seguridad para evitar errores de renderizado
+  if (!Array.isArray(medicamentos) || !Array.isArray(detalles)) {
+    return (
+      <div className="w-full mx-auto pr-4 mr-8">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-red-500 text-sm">Error al cargar los datos</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full mx-auto pr-4 mr-8">
       <div className="flex items-center justify-between mb-6">
@@ -238,7 +257,7 @@ export default function EditarDetalleOrdenVenta() {
               />
             </div>
             <div>
-              {detalles.map((detalle, idx) => (
+              {detalles.filter(detalle => detalle).map((detalle, idx) => (
                 <div key={idx} className="grid grid-cols-1 sm:grid-cols-4 gap-8 mb-8 items-end">
                   <div>
                     <FloatingSelect
@@ -247,11 +266,12 @@ export default function EditarDetalleOrdenVenta() {
                       value={detalle.CodMedicamento}
                       onChange={e => handleDetalleChange(idx, 'CodMedicamento', e.target.value)}
                     >
-                      {medicamentos
+                      {(medicamentos || [])
+                        .filter(med => med && med.CodMedicamento)
                         .filter(med => {
                           // Mostrar el medicamento si no está seleccionado en otra fila
                           const yaSeleccionado = detalles.some((d, i) => 
-                            i !== idx && d.CodMedicamento == med.CodMedicamento
+                            i !== idx && d && d.CodMedicamento == med.CodMedicamento
                           );
                           return !yaSeleccionado;
                         })
