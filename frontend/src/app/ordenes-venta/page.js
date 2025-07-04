@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const API_ORDENES = "http://localhost:3001/api/ordenes-venta";
+const API_ORDENES = `${process.env.NEXT_PUBLIC_API_URL}/api/ordenes-venta`;
 
 function DetalleModal({ orden, onClose, onEdit, onDelete, eliminando, error, mensaje }) {
   useEffect(() => {

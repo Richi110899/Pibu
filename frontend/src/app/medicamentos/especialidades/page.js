@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-const API_URL = 'http://localhost:3001/api/especialidades';
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/especialidades`;
 
 // Floating label input reutilizable
 const FloatingInput = ({ label, name, value, onChange, ...props }) => (

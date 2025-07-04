@@ -4,9 +4,9 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useSWR, { mutate } from 'swr';
 
-const API_DETALLES = "http://localhost:3001/api/detalles-venta";
-const API_MEDICAMENTOS = "http://localhost:3001/api/medicamentos";
-const API_ORDENES = "http://localhost:3001/api/ordenes-venta";
+const API_DETALLES = `${process.env.NEXT_PUBLIC_API_URL}/api/detalles-venta`;
+const API_MEDICAMENTOS = `${process.env.NEXT_PUBLIC_API_URL}/api/medicamentos`;
+const API_ORDENES = `${process.env.NEXT_PUBLIC_API_URL}/api/ordenes-venta`;
 
 const Input = ({ label, name, type = "text", value, onChange, ...props }) => {
   const isDate = type === 'date';

@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const API_DETALLES = "http://localhost:3001/api/detalles-venta";
-const API_ORDENES = "http://localhost:3001/api/ordenes-venta";
-const API_MEDICAMENTO = "http://localhost:3001/api/medicamentos";
+const API_DETALLES = `${process.env.NEXT_PUBLIC_API_URL}/api/detalles-venta`;
+const API_ORDENES = `${process.env.NEXT_PUBLIC_API_URL}/api/ordenes-venta`;
+const API_MEDICAMENTO = `${process.env.NEXT_PUBLIC_API_URL}/api/medicamentos`;
 
 const columns = [
   { key: "id", label: "ID" },

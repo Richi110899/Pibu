@@ -67,7 +67,8 @@ export default function LaboratoriosPage() {
     if (!selected) return;
     setEliminando(true);
     try {
-      const res = await fetch(`http://localhost:3001/api/laboratorios/${selected.CodLab}`, { method: "DELETE" });
+      const API = process.env.NEXT_PUBLIC_API_URL;
+      const res = await fetch(`${API}/api/laboratorios/${selected.CodLab}`, { method: "DELETE" });
       if (res.ok) {
         setMensajeGlobal("Laboratorio eliminado exitosamente");
         setShowDeleteModal(false); setSelected(null);

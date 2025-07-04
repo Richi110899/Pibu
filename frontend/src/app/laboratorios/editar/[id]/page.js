@@ -59,7 +59,8 @@ export default function EditarLaboratorioPage() {
     async function fetchData() {
       setCargando(true);
       try {
-        const res = await fetch(`http://localhost:3001/api/laboratorios/${id}`);
+        const API = process.env.NEXT_PUBLIC_API_URL;
+        const res = await fetch(`${API}/api/laboratorios/${id}`);
         const data = await res.json();
         setForm({
           razonSocial: data.razonSocial || "",

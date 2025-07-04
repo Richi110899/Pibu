@@ -94,8 +94,9 @@ export default function EditarOrdenCompraPage() {
     async function fetchData() {
       setCargando(true);
       try {
+        const API = process.env.NEXT_PUBLIC_API_URL;
         const [res, labs] = await Promise.all([
-          fetch(`http://localhost:3001/api/ordenes-compra/${id}`),
+          fetch(`${API}/api/ordenes-compra/${id}`),
           getLaboratorios()
         ]);
         const data = await res.json();

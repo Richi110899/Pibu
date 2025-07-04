@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import { addMedicamento } from '../../../services/api';
 import useSWR from 'swr';
 
-const API_ESP = "http://localhost:3001/api/especialidades";
-const API_TIPO = "http://localhost:3001/api/tipos";
+const API_ESP = `${process.env.NEXT_PUBLIC_API_URL}/api/especialidades`;
+const API_TIPO = `${process.env.NEXT_PUBLIC_API_URL}/api/tipos`;
 
 const initialState = {
   descripcionMed: '',

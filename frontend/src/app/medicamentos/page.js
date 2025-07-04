@@ -5,10 +5,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import useSWR, { mutate } from 'swr';
 
 // Endpoints
-const API_MED = "http://localhost:3001/api/medicamentos";
-const API_ESP = "http://localhost:3001/api/especialidades";
-const API_TIPO = "http://localhost:3001/api/tipos";
-const API_DETALLES = "http://localhost:3001/api/detalles-venta";
+const API_MED = `${process.env.NEXT_PUBLIC_API_URL}/api/medicamentos`;
+const API_ESP = `${process.env.NEXT_PUBLIC_API_URL}/api/especialidades`;
+const API_TIPO = `${process.env.NEXT_PUBLIC_API_URL}/api/tipos`;
+const API_DETALLES = `${process.env.NEXT_PUBLIC_API_URL}/api/detalles-venta`;
 
 // Floating label input reutilizable
 const FloatingInput = ({ label, name, value, onChange, ...props }) => (

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 
-const API_ORDENES = "http://localhost:3001/api/ordenes-venta";
+const API_ORDENES = `${process.env.NEXT_PUBLIC_API_URL}/api/ordenes-venta`;
 
 const Input = ({ label, name, type = "text", value, onChange, ...props }) => {
   const isDate = type === 'date';

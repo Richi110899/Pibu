@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
 
-const API_ORDENES = "http://localhost:3001/api/ordenes-venta";
+const API_ORDENES = `${process.env.NEXT_PUBLIC_API_URL}/api/ordenes-venta`;
 
 // Floating label input reutilizable con color dinámico
 const Input = ({ label, name, type = "text", value, onChange, ...props }) => {
