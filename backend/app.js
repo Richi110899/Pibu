@@ -4,7 +4,10 @@ require('dotenv').config();
 const { sequelize } = require('./models');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://pibu-nine.vercel.app', // tu dominio de Vercel
+  credentials: true
+}));
 app.use(express.json());
 
 // Rutas
