@@ -97,7 +97,6 @@ export default function EditarMedicamento() {
   const [form, setForm] = useState(initialState);
   const [especialidades, setEspecialidades] = useState([]);
   const [tipos, setTipos] = useState([]);
-  const [mensaje, setMensaje] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   useEffect(() => {

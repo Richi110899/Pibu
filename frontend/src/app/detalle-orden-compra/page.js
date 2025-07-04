@@ -21,7 +21,7 @@ export default function DetalleOrdenCompraPage() {
   const [filtro, setFiltro] = useState("");
   const [selected, setSelected] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false); // Eliminada porque no se usa
   const [mensajeGlobal, setMensajeGlobal] = useState("");
   const [eliminando, setEliminando] = useState(false);
 
@@ -48,7 +48,7 @@ export default function DetalleOrdenCompraPage() {
   }, [selected, showDeleteModal]);
 
   const fetchAll = async () => {
-    setLoading(true);
+    // setLoading(true); // Eliminada porque no se usa
     try {
       const [det, ord, meds] = await Promise.all([
         getDetallesOrdenCompra(),
@@ -61,10 +61,10 @@ export default function DetalleOrdenCompraPage() {
     } catch {
       setMensajeGlobal("Error al cargar los detalles de orden de compra");
     }
-    setLoading(false);
+    // setLoading(false); // Eliminada porque no se usa
   };
 
-  const getOrdenLabel = (id) => ordenes.find(o => o.NroOrdenC === id)?.NroOrdenC || "-";
+  // const getOrdenLabel = (id) => ordenes.find(o => o.NroOrdenC === id)?.NroOrdenC || "-"; // Eliminada porque no se usa
   const getMedicamentoLabel = (id) => medicamentos.find(m => m.CodMedicamento === id)?.descripcionMed || "-";
 
   const detallesFiltrados = detalles.filter(det => {
@@ -190,7 +190,7 @@ export default function DetalleOrdenCompraPage() {
                 </div>
                 <div>
                   <div className="text-gray-400 text-sm mb-1">Descripción</div>
-                  <div className="text-gray-900 font-medium text-sm">{selected.descripcion}</div>
+                  <div className="text-gray-900 font-medium text-sm">{selected.descripcion.replace(/"/g, "&quot;")}</div>
                 </div>
                 <div>
                   <div className="text-gray-400 text-sm mb-1">Monto Unitario</div>

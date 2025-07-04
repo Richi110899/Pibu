@@ -38,9 +38,7 @@ export default function EspecialidadesPage() {
   const [nuevos, setNuevos] = useState([]);
   const [editando, setEditando] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [mensajeModal, setMensajeModal] = useState('');
   const [mensajeGlobal, setMensajeGlobal] = useState('');
-  const router = useRouter();
 
   useEffect(() => {
     fetchEspecialidades();
@@ -62,7 +60,6 @@ export default function EspecialidadesPage() {
       if (e.key === 'Escape') {
         if (showModal) {
           setShowModal(false);
-          setMensajeModal('');
           setNuevo('');
           setNuevos([]);
         }
@@ -301,7 +298,6 @@ export default function EspecialidadesPage() {
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors duration-200"
               onClick={() => {
                 setShowModal(false);
-                setMensajeModal('');
                 setNuevo('');
                 setNuevos([]);
               }}

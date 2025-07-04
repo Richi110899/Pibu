@@ -18,7 +18,7 @@ export default function LaboratoriosPage() {
   const [filtro, setFiltro] = useState("");
   const [selected, setSelected] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false); // Eliminada porque no se usa
   const [mensajeGlobal, setMensajeGlobal] = useState("");
   const [eliminando, setEliminando] = useState(false);
 
@@ -48,14 +48,14 @@ export default function LaboratoriosPage() {
   }, [selected, showDeleteModal]);
 
   const fetchLaboratorios = async () => {
-    setLoading(true);
+    // setLoading(true); // Eliminada porque no se usa
     try {
       const data = await getLaboratorios();
       setLaboratorios(data);
     } catch {
       setMensajeGlobal("Error al cargar los laboratorios");
     }
-    setLoading(false);
+    // setLoading(false); // Eliminada porque no se usa
   };
 
   const laboratoriosFiltrados = laboratorios.filter(lab =>
@@ -161,7 +161,7 @@ export default function LaboratoriosPage() {
                 </div>
                 <div>
                   <div className="text-gray-400 text-sm mb-1">Dirección</div>
-                  <div className="text-gray-900 font-medium text-sm">{selected.direccion}</div>
+                  <div className="text-gray-900 font-medium text-sm">{selected.direccion.replace(/"/g, "&quot;")}</div>
                 </div>
                 <div>
                   <div className="text-gray-400 text-sm mb-1">Teléfono</div>
